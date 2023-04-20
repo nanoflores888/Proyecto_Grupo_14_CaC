@@ -1,0 +1,79 @@
+{% extends './base.html' %}
+{% block titulo %}Sobre Mi{% endblock titulo %}
+{% load static %} 
+
+{% block contenido %}
+
+<!-- ======= About Section ======= -->
+<section id="about" class="about">
+  <div class="container">
+    <div class="section-title">
+      <h2>Sobre mí</h2>
+      <p>
+        Mi nombre es Franco Manuel Stier, tengo 19 años, vivo en Pilar,
+        provincia de Buenos Aires. Además de tener la pasión por el
+        automovilismo, me encuentro estudiando abogacía con el primer año de
+        carrera recién aprobado. Junto al automovilismo son mis dos prioridades.
+        Soy egresado del colegio Instituto Madre del Divino Pastor, donde tuve
+        el privilegio de ser abanderado.
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-lg-4" data-aos="fade-right">
+        <img src="{% static '/home/img/FS.jpeg' %}" class="img-fluid" alt="" />
+      </div>
+      <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+        <h3>Piloto de Automovilismo Deportivo</h3>
+        <div class="row">
+          <div class="col-lg-6">
+            <ul>
+              <li>
+                <i class="bi bi-chevron-right"></i>
+                <strong>Nacimiento:</strong> <span>5 Diciembre 2003</span>
+              </li>
+              <li>
+                <i class="bi bi-chevron-right"></i> <strong>WhatsApp:</strong>
+                <span>+54 9 11 6705 8731</span>
+              </li>
+              <li>
+                <i class="bi bi-chevron-right"></i> <strong>Ciudad:</strong>
+                <span>Buenos Aires, Argentina</span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <ul>
+              <li>
+                <i class="bi bi-chevron-right"></i> <strong>Edad:</strong>
+                <span>19</span>
+              </li>
+              <li>
+                <i class="bi bi-chevron-right"></i> <strong>Ocupación:</strong>
+                <span>Estudiante Abogacía</span>
+              </li>
+              <li>
+                <i class="bi bi-chevron-right"></i> <strong>Email:</strong>
+                <span>francostier@gmail.com</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p>
+          Mi trayecto en el aumovilismo comenzó como SimRacer en 2017. En estos
+          5 años fui progresando y compitiendo a nivel mundial, representando al
+          país dentro de la plataforma de iRacing. El simracing me dió muchos
+          conocimientos y una buena base a la hora de mi debut en kart en el año
+          2021 dentro de KartPlus. Ya en el 2022 con metas más claras, y más
+          experiencia. Me propuse pelear el campeonato. Cumpliendo el objetivo
+          con tres victorias y seis podios a lo largo del año, lo que me
+          permitió ser campeón al finalizar la temporada.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End About Section -->
+
+{% include './resultados.html' %}
+
+{% endblock contenido %}
