@@ -6,6 +6,6 @@ class Contacto(models.Model):
     telefono = models.IntegerField()
     email = models.EmailField()
     mensaje = models.CharField(max_length=250)
-
+    
     def __str__(self):
         return f"{self.nombre} - {self.apellido} - {self.telefono} - {self.email} - {self.mensaje}"

@@ -1,32 +1,33 @@
 from django import forms
-from .models import Contacto
-
-class UserInfoForm(forms.ModelForm):
+from django.forms import ModelForm, TextInput, EmailInput, NumberInput
+from .models import Contacto 
+    
+class UserInfoForm(ModelForm):
     class Meta:
         model = Contacto
         fields = ['nombre', 'apellido', 'telefono', 'email', 'mensaje']
         widgets = {
-            'nombre': forms.TextInput(attrs={
+            'nombre': TextInput(attrs={
                 'class': "form-control",
                 'style': 'max-width: 600px;',
                 'placeholder': 'Nombre'
                 }),
-            'apellido': forms.TextInput(attrs={
-                'class': "form-control",
+            'apellido': TextInput(attrs={
+                'class': "form-control", 
                 'style': 'max-width: 600px;',
                 'placeholder': 'Apellido'
                 }),
-            'telefono': forms.NumberInput(attrs={
+            'telefono': NumberInput(attrs={
                 'class': "form-control",
                 'style': 'max-width: 600px;',
                 'placeholder': 'Telefono'
                 }),
-            'email': forms.EmailInput(attrs={
+            'email': EmailInput(attrs={
                 'class': "form-control",
                 'style': 'max-width: 600px;',
                 'placeholder': 'Email'
                 }),
-            'mensaje': forms.TextInput(attrs={
+            'mensaje': TextInput(attrs={
                 'class': "form-control",
                 'style': 'max-width: 600px; max-height: 600px;',
                 'placeholder': 'Mensaje'
