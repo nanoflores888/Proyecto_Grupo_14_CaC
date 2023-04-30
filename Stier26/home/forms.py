@@ -32,3 +32,4 @@ class UserInfoForm(forms.ModelForm):
                 'placeholder': 'Mensaje'
                 }),
         }
+        
