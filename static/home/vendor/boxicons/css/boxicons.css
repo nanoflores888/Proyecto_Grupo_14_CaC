@@ -1468,6 +1468,9 @@
   .bx-book-content:before {
     content: "\e9e5";
   }
+  .bx-conversation:before {
+    content: "\e9e5";
+  }
   .bx-book-heart:before {
     content: "\e9e6";
   }

@@ -1,13 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.template import loader
+from django.shortcuts import redirect, render
 from .forms import UserInfoForm
 from django.contrib import messages
-from .forms import UserInfoForm
 
 def home(request):
         return render(request, "home/index.html")
-    
+
 def sobre_mi(request):
     return render(request, "home/sobre_mi.html")
 
@@ -20,14 +17,14 @@ def proyecto_F4(request):
 def galeria(request):
     return render(request, "home/galeria.html")
 
-#def contacto(request):
-    if request.method == 'POST':
-        contacto_form = UserInfoForm(request.POST)
-        if contacto_form.is_valid():
-            messages.info(request, "Info Importante")
-    else:
-        contacto_form = UserInfoForm()
-    return render(request, "home/contacto.html", {'contacto_form': contacto_form})
-
 def contacto(request):
-    return render(request, "home/contacto.html", {'form': UserInfoForm,})
+    if request.method == 'POST':
+        contact_form = UserInfoForm(request.POST)
+        if contact_form.is_valid():
+            contact_form.save()
+            messages.success(request, 'Mensaje enviado correctamente.')
+            return redirect('home/confirmacion_envio.html')
+    else:
+        contact_form = UserInfoForm()
+
+    return render(request, "home/contacto.html", {'contact_form': contact_form})
