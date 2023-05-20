@@ -38,8 +38,7 @@ def new_notice(request):
         contact_form = UserInfoForm(request.POST)
         if contact_form.is_valid():
             contact_form.save()
-            messages.success(request, 'Mensaje enviado 
-            correctamente.')
+            messages.success(request, 'Mensaje enviado            correctamente.')
             return redirect('home/confirmacion_envio.html')
         else:
             contact_form = UserInfoForm()
