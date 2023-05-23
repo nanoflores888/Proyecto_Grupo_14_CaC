@@ -2,12 +2,19 @@
 {% block titulo %}Contacto{% endblock titulo %}
 {% load static %}
 
+
+
 {% block contenido %}
-
 <!--======= Contacto Section ======= -->
-
 <section id="contact-form" class="contact-form">
-  <div class="container">
+  {% for message in messages %}
+  <div class="alert alert-success custom-message">
+      {{ message }}
+  </div>
+{% endfor %}
+
+  </div>
+<div class="container">
     <div class="section-title">
       <h2>Contacto</h2>
     </div>
@@ -16,10 +23,9 @@
     <form method="post">
       {% csrf_token %}
       {{ contact_form.as_p }}
-      <button type="button" class="btn btn-primary">Enviar Mensaje</button>
+      <button type="submit" class="btn btn-primary" id='send-button'>Enviar Mensaje</button>
     </form>
 </section>
-
 <!-- End Contacto Section -->
 
 {% endblock contenido %}

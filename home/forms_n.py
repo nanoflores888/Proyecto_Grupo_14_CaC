@@ -4,8 +4,7 @@ from .models import Noticias
 class UserInfoForm(forms.ModelForm):
     class Meta:
         model = Noticias
-        fields = ['nombre', 'apellido', 'telefono', 'email', 
-'titulo', 'contenido']
+        fields = ['nombre', 'apellido', 'telefono', 'email','titulo', 'contenido']
         widgets = {
             'nombre': forms.TextInput(attrs={
                 'class': "form-control",
@@ -35,6 +34,5 @@ class UserInfoForm(forms.ModelForm):
             'contenido': forms.Textarea(attrs={
             'class': "form-control",
             'style': 'max-width: 600px; max-height: 600px;',
-            'placeholder': 'Contenido'
-                 }),
+            'placeholder': 'Contenido'}),
         }
