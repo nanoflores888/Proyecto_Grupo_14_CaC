@@ -2,30 +2,152 @@
 {% block titulo %}Contacto{% endblock titulo %}
 {% load static %}
 
-
-
 {% block contenido %}
-<!--======= Contacto Section ======= -->
-<section id="contact-form" class="contact-form">
-  {% for message in messages %}
-  <div class="alert alert-success custom-message">
-      {{ message }}
-  </div>
-{% endfor %}
+  <!--======= Contacto Section ======= -->
+  <section id="contact-form" class="contact-form">
+    {% for message in messages %}
+      <div class="alert alert-success custom-message">
+        {{ message }}
+      </div>
+    {% endfor %}
 
-  </div>
-<div class="container">
-    <div class="section-title">
-      <h2>Contacto</h2>
+    <div class="container">
+      <div class="section-title">
+        <h2>Contacto</h2>
+      </div>
+      <p>Por favor complete el siguiente formulario para enviar un mensaje:</p>
+
+      <form method="post" id="contact-form">
+        {% csrf_token %}
+        {% for field in contact_form %}
+          <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+              <div class="invalid-feedback">
+                {% for error in field.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary" id="send-button">Enviar Mensaje</button>
+      </form>
     </div>
-    <p>Por favor complete el siguiente formulario para enviar un mensaje:</p>
-
-    <form method="post">
-      {% csrf_token %}
-      {{ contact_form.as_p }}
-      <button type="submit" class="btn btn-primary" id='send-button'>Enviar Mensaje</button>
-    </form>
-</section>
-<!-- End Contacto Section -->
-
+  </section>
+  <!-- End Contacto Section -->
 {% endblock contenido %}
+
+{% block script %}
+<script>
+        const form = document.getElementById('contact-form');
+        const nombreInput = document.getElementById('id_nombre');
+        const apellidoInput = document.getElementById('id_apellido');
+        const telefonoInput = document.getElementById('id_telefono');
+        const emailInput = document.getElementById('id_email');
+        const mensajeInput = document.getElementById('id_mensaje');
+
+        function validateNombre(input) {
+          const regex = /^[a-zA-Z]+$/;
+          return regex.test(input);
+        }
+
+        function validateTelefono(input) {
+          const regex = /^[0-9]+$/;
+          return regex.test(input);
+        }
+
+        function validateEmail(input) {
+          const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return regex.test(input);
+        }
+
+        function validateForm(event) {
+          let valid = true;
+
+          // Remove existing error messages
+          const errorMessages = document.querySelectorAll('.invalid-feedback');
+          errorMessages.forEach(function(message) {
+            message.remove();
+          });
+
+          // Validate nombre field
+          if (!validateNombre(nombreInput.value)) {
+            event.preventDefault();
+            nombreInput.classList.add('is-invalid');
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'invalid-feedback';
+            errorMessage.innerText = 'El nombre debe contener solo letras';
+            nombreInput.parentNode.appendChild(errorMessage);
+            valid = false;
+          } else {
+            nombreInput.classList.remove('is-invalid');
+          }
+
+          // Validate apellido field
+          if (!validateNombre(apellidoInput.value)) {
+            event.preventDefault();
+            apellidoInput.classList.add('is-invalid');
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'invalid-feedback';
+            errorMessage.innerText = 'El apellido debe contener solo letras';
+            apellidoInput.parentNode.appendChild(errorMessage);
+            valid = false;
+          } else {
+            apellidoInput.classList.remove('is-invalid');
+          }
+
+          // Validate telefono field
+          if (!validateTelefono(telefonoInput.value)) {
+            event.preventDefault();
+            telefonoInput.classList.add('is-invalid');
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'invalid-feedback';
+            errorMessage.innerText = 'El teléfono debe contener solo números';
+            telefonoInput.parentNode.appendChild(errorMessage);
+            valid = false;
+          } else {
+            telefonoInput.classList.remove('is-invalid');
+          }
+
+          // Validate email field
+          if (!validateEmail(emailInput.value)) {
+            event.preventDefault();
+            emailInput.classList.add('is-invalid');
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'invalid-feedback';
+            errorMessage.innerText = 'Ingrese un correo electrónico válido';
+            emailInput.parentNode.appendChild(errorMessage);
+            valid = false;
+          } else {
+            emailInput.classList.remove('is-invalid');
+          }
+
+          // Validate mensaje field
+          if (mensajeInput.value.length < 20 || mensajeInput.value.length > 1000) {
+            event.preventDefault();
+            mensajeInput.classList.add('is-invalid');
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'invalid-feedback';
+            errorMessage.innerText = 'El mensaje debe contener entre 20 y 1000 caracteres';
+            mensajeInput.parentNode.appendChild(errorMessage);
+            valid = false;
+          } else {
+            mensajeInput.classList.remove('is-invalid');
+          }
+
+          if (valid) {
+            nombreInput.value = '';
+            apellidoInput.value = '';
+            telefonoInput.value = '';
+            emailInput.value = '';
+            mensajeInput.value = '';
+          }
+
+          return valid;
+        }
+
+        form.addEventListener('submit', validateForm);
+      </script>
+      {% endblock script %}

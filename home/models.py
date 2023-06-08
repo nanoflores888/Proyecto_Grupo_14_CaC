@@ -1,27 +1,28 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 from django.db import models
+from django.core.validators import MinLengthValidator
 
 # Modelo de la clase Contacto
 class Contacto(models.Model):
     nombre = models.CharField(max_length=50, verbose_name="NOMBRE", null=False)
     apellido = models.CharField(max_length=50, verbose_name="APELLIDO", null=False)
-    telefono = models.CharField(max_length=50, verbose_name="TELEFONO", null=False)
+    telefono = models.IntegerField(max_length=50, verbose_name="TELEFONO", null=False)
     email = models.EmailField(verbose_name="EMAIL", null=False)
-    mensaje = models.CharField(max_length=1000, verbose_name="MENSAJE", null=False)
+    mensaje = models.CharField(max_length=1000, verbose_name="MENSAJE", validators=[MinLengthValidator(20)] ,null=False)
 
     class Meta:
         db_table = 'CONTACTO'
 
     def __str__(self):
-        return f"{self.nombre} - {self.apellido} - {self.telefono} - {self.email} - {self.mensaje}"
+        return f"{self.nombre} - {self.apellido}"
 
 # Modelo de la clase Persona
 class Persona(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="ID")
     nombre = models.CharField(max_length=100, verbose_name="NOMBRE")
     apellido = models.CharField(max_length=100, verbose_name="APELLIDO")
-    email = models.EmailField(null=False, verbose_name="ENAIL")
+    email = models.EmailField(null=False, verbose_name="EMAIL")
     contraseña = models.CharField(max_length=128, null=False, verbose_name="CONTRASEÑA")
     estado_activo = models.BooleanField(default=1)
 
@@ -44,6 +45,11 @@ class Persona(models.Model):
     def restore(self):
         self.baja=False
         super().save()
+    
+    def set_roles(self, roles):
+        for role in roles:
+            rol, _ = Rol.objects.get_or_create(detalle_rol=role)
+            Persona_rol.objects.create(id_persona=self, id_rol=rol)
 
 # Modelo de la clase ROL
 class Rol(models.Model):
@@ -61,14 +67,17 @@ class Rol(models.Model):
         db_table = 'ROL'
 
     def __str__(self):
-        return f"{self.id} - {self.detalle}"
+        return self.get_detalle_rol_display()
+
+    def get_detalle_rol_display(self):
+        return dict(self.ROLES).get(self.detalle_rol)
 
 
 # Modelo de la clase Persona_rol
 class Persona_rol(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="ID")
     id_rol = models.ForeignKey(Rol, on_delete=models.CASCADE, verbose_name="ID_ROL", null=False)
-    id_persona = models.ForeignKey(Persona, on_delete=models.CASCADE, verbose_name="ID_ROL", null=False)
+    id_persona = models.ForeignKey(Persona, on_delete=models.CASCADE, verbose_name="ID_PERSONA", null=False)
     fecha_creacion = models.DateField(auto_now= True, null=False, verbose_name="FECHA_CREACION")
     fecha_modificacion = models.DateField(auto_now=True, null=True, verbose_name="FECHA_MODIFICACION")
 
@@ -76,7 +85,7 @@ class Persona_rol(models.Model):
         db_table = 'PERSONA_ROL'
 
     def __str__(self):
-        return f"{self.id} - {self.detalle}"
+        return f"{self.id_persona} - {self.id_rol}"
 
 # Modelo de la clase Publicacion
 class Publicacion(models.Model):
@@ -116,12 +125,3 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f"{self.id} - {self.contenido}"
-
-
-
-
-
-
-
-
-
