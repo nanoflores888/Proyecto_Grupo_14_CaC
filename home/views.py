@@ -19,8 +19,8 @@ def proyecto_F4(request):
 def galeria(request):
     return render(request, "home/galeria.html")
 
-def noticias(request):
-    return render(request, "home/noticias.html")
+
+
 
 
 '''------- CRUD DE CONTACTO -------'''
