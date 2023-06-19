@@ -2,6 +2,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 from django.db import models
 from django.core.validators import MinLengthValidator
+from django.contrib.auth.models import User
 
 # Modelo de la clase Contacto
 class Contacto(models.Model):
@@ -20,6 +21,7 @@ class Contacto(models.Model):
 # Modelo de la clase Persona
 class Persona(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="ID")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="USUARIO")
     nombre = models.CharField(max_length=100, verbose_name="NOMBRE")
     apellido = models.CharField(max_length=100, verbose_name="APELLIDO")
     email = models.EmailField(null=False, verbose_name="EMAIL")

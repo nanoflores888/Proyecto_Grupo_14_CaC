@@ -1,8 +1,19 @@
 from django.shortcuts import redirect, render
-from .forms import ContactoForm
-from .forms import PublicacionForm
+from .forms import ContactoForm, PublicacionForm
 from .models import Publicacion
 from django.contrib import messages
+
+from django.core.mail import send_mail
+from django.conf import settings
+
+from django.contrib.auth.views import LoginView, LogoutView
+from .forms import RegistroForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def home(request):
     return render(request, "home/index.html")
@@ -21,6 +32,8 @@ def galeria(request):
 
 def noticias(request):
     return render(request, "home/noticias.html")
+
+
 
 
 '''------- CRUD DE CONTACTO -------'''
@@ -54,3 +67,24 @@ def listar_publicaciones(request):
     #queryset
     publicaciones = Publicacion.objects.all()
     return render(request,'home/noticias.html',{'publication_form': publicaciones})
+
+
+def registro(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, f'Cuenta creada!')
+            return redirect('login')
+    else:
+        form = RegistroForm()
+    return render(request, 'home/registro.html', {'form': form, 'title': 'Registro'})
+
+class EditLogoutView(LogoutView):
+    next_page = 'home'
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        messages.add_message(request, messages.INFO, 'Sesion finalizada.')
+        return response

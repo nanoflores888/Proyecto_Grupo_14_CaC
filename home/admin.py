@@ -28,6 +28,7 @@ web_admin.register(Publicacion)
 web_admin.register(Comentario)
 web_admin.register(Persona_rol)
 web_admin.register(Rol)
+web_admin.register(User)
 
 
 
