@@ -35,15 +35,6 @@
           >
         </li>
         <li>
-<<<<<<< HEAD
-          <a href="{% url 'post_list' %}" class="nav-link scrollto"
-=======
-          <a href="{% url 'noticias' %}" class="nav-link scrollto"
->>>>>>> 30d5f8eff8b081bd5817d141ee101823dbb19aba
-            ><i class="bx bx-news"></i> <span>Noticias</span></a
-          >
-        </li>
-        <li>
           <a href="{% url 'galeria' %}" class="nav-link scrollto"
             ><i class="bx bx-book-content"></i> <span>Galería</span></a
           >
@@ -59,14 +50,15 @@
         </div>
         {% if perms.admin %}
         <li>
-<<<<<<< HEAD
           <a href="{% url 'admin:index' %}" class="nav-link scrollto"><i class="bx bx-cog"></i
-=======
-          <a href="admin/" class="nav-link scrollto"><i class="bx bx-cog"></i
->>>>>>> 30d5f8eff8b081bd5817d141ee101823dbb19aba
             ><span>Administrar</span></a>
         </li>
         {% endif %}
+        <li>
+          <a href="{% url 'post_list' %}" class="nav-link scrollto"
+            ><i class="bx bx-news"></i> <span>Blog</span></a
+          >
+        </li>
         <li>
           <a href="{% url 'password_change' %}" class="nav-link scrollto"
             ><i class="bx bx-lock"></i

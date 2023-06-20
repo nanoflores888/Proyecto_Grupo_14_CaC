@@ -24,7 +24,6 @@ class RolesAdmin(admin.ModelAdmin):
 
 web_admin = Admin14Site(name='admin14')
 web_admin.register(Contacto, ContactoEdit)
-<<<<<<< HEAD
 #web_admin.register(Persona, RolesAdmin)
 #web_admin.register(Publicacion)
 #web_admin.register(Comentario)
@@ -33,14 +32,6 @@ web_admin.register(Contacto, ContactoEdit)
 web_admin.register(User)
 web_admin.register(Post)
 web_admin.register(Comment)
-=======
-web_admin.register(Persona, RolesAdmin)
-web_admin.register(Publicacion)
-web_admin.register(Comentario)
-web_admin.register(Persona_rol)
-web_admin.register(Rol)
-web_admin.register(User)
->>>>>>> 30d5f8eff8b081bd5817d141ee101823dbb19aba
 
 
 

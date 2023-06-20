@@ -33,12 +33,6 @@ def galeria(request):
 def noticias(request):
     return render(request, "home/noticias.html")
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 30d5f8eff8b081bd5817d141ee101823dbb19aba
 '''------- CRUD DE CONTACTO -------'''
 
 def contacto(request):
