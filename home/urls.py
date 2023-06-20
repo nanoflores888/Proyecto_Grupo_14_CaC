@@ -2,8 +2,11 @@ from django.urls import path, include
 from . import views
 from home.admin import web_admin
 from django.contrib.auth import views as auth_views
+<<<<<<< HEAD
 from django.conf import settings
 from django.conf.urls.static import static
+=======
+>>>>>>> 30d5f8eff8b081bd5817d141ee101823dbb19aba
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -28,4 +31,8 @@ urlpatterns = [
          views.EditLogoutView.as_view(), name='logout'),
     path('accounts/password_change/', auth_views.PasswordChangeView.as_view(success_url="/"), name='password_change'), 
     path('accounts/', include('django.contrib.auth.urls')),
+<<<<<<< HEAD
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+=======
+]
+>>>>>>> 30d5f8eff8b081bd5817d141ee101823dbb19aba
