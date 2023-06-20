@@ -1,0 +1,51 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card mt-4 rounded">
+    <div class="card-body">
+        <h4>
+            {% if post.id %}Editar{% else %}Nuevo{% endif %} Posteo
+        </h4>
+        <hr>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ post.titulo }}
+            <p class="text-end">
+                <a href="{% url 'post_list' %}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </p>
+            <div id="previewSection" style="display: none;">
+                <hr>
+                <p>Previsualización</p>
+                <img id="previewImage" class="img-fluid"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    new MediumEditor('.content');
+</script>
+
+<script>
+    function previewImage(file) {
+        var div = document.getElementById('previewSection');
+        div.style.display = "block";
+        var output = document.getElementById('previewImage');
+        output.src = file;
+        output.onload = function() {
+            URL.revokeObjectURL(output.src)
+        }
+    }
+    document.getElementById("id_imagen").onchange = function() {
+        previewImage(URL.createObjectURL(event.target.files[0]));
+    }
+    if ("{{ post.imagen }}") {
+        file = "{% get_media_prefix %}{{ post.imagen }}";
+        previewImage(file);
+    }
+</script>
+
+{% endblock %}

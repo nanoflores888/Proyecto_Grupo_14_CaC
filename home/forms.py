@@ -1,8 +1,7 @@
 from django import forms
-from .models import Contacto
-from .models import Publicacion
+from .models import Contacto, Publicacion, User
 from django.forms import ValidationError
-import re
+from django.contrib.auth.forms import UserCreationForm
 
 def solo_caracteres(value):
     if any(char.isdigit() for char in value):
@@ -96,3 +95,8 @@ class PublicacionForm(forms.ModelForm):
                     'required': True
                     }),
             }
+
+class RegistroForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username','email' , 'password1', 'password2']

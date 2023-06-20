@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="card mt-3 border-0">
+  <div class="card-body">
+    <form action="" method="post">
+      {% csrf_token %}
+      <img src="{% get_media_prefix %}{{ post.image }}" class="card-img-top" alt="{{ post.title }}">
+      <h5 class="text-title text-center mt-3">
+        Seguro que queres borrar "{{ post }}"?
+      </h5>
+      <p class="text-center">
+        <small><i>Atencion: Todos los comentarios tambien seran eliminados.</i></small>
+      </p>
+      <p class="text-end">
+        <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-secondary">Cancelar</a>
+        <input class="btn btn-danger" type="submit" value="Confirmar" />
+      </p>
+    </form>
+  </div>
+</div>
+{% endblock %}

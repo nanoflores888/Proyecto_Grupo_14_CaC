@@ -1,4 +1,5 @@
 from django.contrib import admin
+from blog.models import *
 from home.models import *
 
 # Register your models here.
@@ -23,11 +24,14 @@ class RolesAdmin(admin.ModelAdmin):
 
 web_admin = Admin14Site(name='admin14')
 web_admin.register(Contacto, ContactoEdit)
-web_admin.register(Persona, RolesAdmin)
-web_admin.register(Publicacion)
-web_admin.register(Comentario)
-web_admin.register(Persona_rol)
-web_admin.register(Rol)
+#web_admin.register(Persona, RolesAdmin)
+#web_admin.register(Publicacion)
+#web_admin.register(Comentario)
+#web_admin.register(Persona_rol)
+#web_admin.register(Rol)
+web_admin.register(User)
+web_admin.register(Post)
+web_admin.register(Comment)
 
 
 

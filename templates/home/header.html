@@ -35,8 +35,8 @@
           >
         </li>
         <li>
-          <a href="{% url 'noticias' %}" class="nav-link scrollto"
-            ><i class="bx bx-envelope"></i> <span>Noticias</span></a
+          <a href="{% url 'post_list' %}" class="nav-link scrollto"
+            ><i class="bx bx-news"></i> <span>Noticias</span></a
           >
         </li>
         <li>
@@ -49,6 +49,40 @@
             ><i class="bx bx-conversation"></i> <span>Contacto</span></a
           >
         </li>
+       {% if user.is_authenticated %}
+        <div class="container pt-5">
+          <h6 class="text-light">Bienvenido/a, {{ user.username }}.</h6>
+        </div>
+        {% if perms.admin %}
+        <li>
+          <a href="{% url 'admin:index' %}" class="nav-link scrollto"><i class="bx bx-cog"></i
+            ><span>Administrar</span></a>
+        </li>
+        {% endif %}
+        <li>
+          <a href="{% url 'password_change' %}" class="nav-link scrollto"
+            ><i class="bx bx-lock"></i
+            ><span>Cambiar Contraseña</span></a
+          >
+        </li>
+        <li>
+          <a href="{% url 'logout' %}" class="nav-link scrollto"
+            ><i class="bx bx-log-out"></i><span>Logout</span></a
+          >
+        </li>
+        {% else %}
+        <div class="container pt-5 ">
+        <li>
+          <a href="{% url 'login' %}" class="nav-link scrollto"
+            ><i class="bx bx-log-in"></i><span>Login</span></a
+          >
+        </li>
+        <li>
+          <a href="{% url 'registro' %}" class="nav-link scrollto"
+            ><i class="bx bx-id-card"></i><span>Registrarse</span></a
+          >
+        </li>
+        {% endif %}
       </ul>
     </nav>
     <!-- .nav-menu -->
