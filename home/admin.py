@@ -32,6 +32,4 @@ web_admin.register(Contacto, ContactoEdit)
 web_admin.register(User)
 web_admin.register(Post)
 web_admin.register(Comment)
-
-
-
+#web_admin.register(Topic)

@@ -7,6 +7,20 @@ STATUS = (
     (2, "Archivar"),
 )
 
+class Topic(models.Model):
+    pass
+#    TOPIC_CHOICES = [
+#        (0, "Opinion"),
+#        (1, "Consejo"),
+#        (2, "Carrera"),
+#        (3, "Clasificacion"),
+#    ]
+#
+#    topic = models.IntegerField(choices=TOPIC_CHOICES, default= 1, verbose_name="TOPIC")
+#
+#    def __str__(self):
+#        return self.get_topic_display()
+
 
 class Post(models.Model):
     titulo = models.CharField(max_length=200, unique=True)
@@ -24,7 +38,8 @@ class Post(models.Model):
     )
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-
+    #topic = models.ManyToManyField(Topic, verbose_name="TOPIC")
+    
     def __str__(self):
         return self.titulo
 
@@ -42,6 +57,7 @@ class Comment(models.Model):
     approved_comment = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-
+    #topic = models.ManyToManyField(Topic, verbose_name="TOPIC")
+    
     def __str__(self):
         return self.texto
