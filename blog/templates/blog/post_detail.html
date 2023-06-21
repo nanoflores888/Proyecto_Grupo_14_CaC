@@ -28,16 +28,16 @@
         <div class="row">
             <div class="col"><h5>Comentarios:</h5></div>
             <div class="col text-end">
-                <a class="btn btn-primary mb-3" href="{% url 'add_comment' pk=post.pk %}">Agregar un comentario</a>
+                <a class="btn btn-primary mb-3" href="{% url 'add_comment' pk=post.pk %}">Comentar</a>
             </div>
         </div>
         {% for comment in post.comments.all %}
             {% if comment.approved_comment or user.is_authenticated and post.autor.id == request.user.id %}
 
                 <div class="alert alert-secondary mt-1" role="alert">
-                    <strong>{{ comment.author|title }}</strong> 
+                    <strong>{{ comment.autor|title }}</strong> 
                     <small>{{ comment.created_date|timesince }}</small>
-                    {{ comment.text|safe }}
+                    {{ comment.texto|safe }}
                     {% if not comment.approved_comment %}
                         <a class="btn btn-sm btn-danger" href="{% url 'comment_remove' pk=comment.pk %}"><span class="bi bi-trash"></span></a>
                         <a class="btn btn-sm btn-success" href="{% url 'comment_approve' pk=comment.pk %}"><span class="bi bi-check"></span></a>
@@ -46,7 +46,7 @@
             {% endif %}
         {% empty %}
             <div class="alert alert-secondary mt-1" role="alert">
-                Esta publicacion todavia no tiene comentarios.
+                Esta publicacion no tiene comentarios.
             </div>
         {% endfor %}
     </div>

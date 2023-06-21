@@ -35,7 +35,7 @@ class CreatePost(LoginRequiredMixin, generic.CreateView):
         POST variables and then check if it's valid.
         """
         request.POST._mutable = True
-        request.POST["author"] = request.user
+        request.POST["autor"] = request.user
         request.POST._mutable = False
 
         form = self.get_form()
@@ -103,7 +103,7 @@ def add_comment(request, pk):
     post = Post.objects.filter(pk=pk).first()
     if request.method == "POST":
         request.POST._mutable = True
-        request.POST["author"] = request.user
+        request.POST["autor"] = request.user
         request.POST["post"] = post
         request.POST._mutable = False
         form = CommentForm(request.POST)

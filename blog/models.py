@@ -26,22 +26,22 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.titulo
 
 
 class Comment(models.Model):
     post = models.ForeignKey(
         Post, related_name="comments", on_delete=models.CASCADE
     )
-    author = models.ForeignKey(
+    autor = models.ForeignKey(
         User,
         related_name="comments",
         on_delete=models.CASCADE,
     )
-    text = models.TextField()
+    texto = models.TextField()
     approved_comment = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.text
+        return self.texto

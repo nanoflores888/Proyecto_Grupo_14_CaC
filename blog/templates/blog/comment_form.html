@@ -3,12 +3,12 @@
 {% block content %}
     <div class="card mt-3 border-0">
         <div class="card-body">
-            <h4>Escriba su comentario</h4>
+            <h4>Nuevo Comentario</h4>
             <hr>
             <form method="POST" class="post-form">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary float-end">Publicar</button>
+                <button type="submit" class="btn btn-primary float-end">Comentar</button>
             </form>
         </div>
     </div>

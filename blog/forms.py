@@ -22,12 +22,12 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = (
             "post",
-            "author",
-            "text",
+            "autor",
+            "texto",
         )
 
         widgets = {
             "post": forms.HiddenInput(),
-            "author": forms.HiddenInput(),
-            "text": forms.Textarea(attrs={"class": "form-control content"}),
+            "autor": forms.HiddenInput(),
+            "texto": forms.Textarea(attrs={"class": "form-control content"}),
         }

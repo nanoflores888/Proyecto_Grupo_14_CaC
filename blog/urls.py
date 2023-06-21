@@ -1,6 +1,5 @@
-from django.conf import settings
-from django.conf.urls.static import static
 from django.urls import path
+
 from . import views
 
 urlpatterns = [
@@ -29,4 +28,4 @@ urlpatterns = [
     ),
     path("post/<int:pk>/comment/", views.add_comment, name="add_comment"),
     path("user/new/", views.CreateUser.as_view(), name="new_user"),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

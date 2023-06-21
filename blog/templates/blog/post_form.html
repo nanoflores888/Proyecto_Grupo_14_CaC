@@ -18,7 +18,7 @@
             </p>
             <div id="previewSection" style="display: none;">
                 <hr>
-                <p>Previsualización</p>
+                <p>Imagen:</p>
                 <img id="previewImage" class="img-fluid"/>
             </div>
         </form>
@@ -42,7 +42,7 @@
     document.getElementById("id_imagen").onchange = function() {
         previewImage(URL.createObjectURL(event.target.files[0]));
     }
-    if ("{{ post.imagen }}") {
+    if ("{{ post.image }}") {
         file = "{% get_media_prefix %}{{ post.imagen }}";
         previewImage(file);
     }
