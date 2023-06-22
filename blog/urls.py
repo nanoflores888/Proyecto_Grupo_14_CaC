@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 
 from . import views
 
@@ -28,4 +28,5 @@ urlpatterns = [
     ),
     path("post/<int:pk>/comment/", views.add_comment, name="add_comment"),
     path("user/new/", views.CreateUser.as_view(), name="new_user"),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]

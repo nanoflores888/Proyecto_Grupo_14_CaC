@@ -47,7 +47,7 @@ class Persona(models.Model):
     def restore(self):
         self.baja=False
         super().save()
-    
+
     def set_roles(self, roles):
         for role in roles:
             rol, _ = Rol.objects.get_or_create(detalle_rol=role)

@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views import View
 
 from .forms import CommentForm, PostForm
 from .models import Comment, Post
-
 
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by("-created_on")
@@ -20,29 +20,24 @@ class PostDetail(generic.DetailView):
     # template_name = 'post_detail.html'
 
 
-class CreatePost(LoginRequiredMixin, generic.CreateView):
+class CreatePost(LoginRequiredMixin, View):
     login_url = reverse_lazy("login")
-    success_url = reverse_lazy("post_list")
-
     form_class = PostForm
-    # model = Post
-    queryset = Post.objects.all()
     template_name = "blog/post_form.html"
 
-    def post(self, request, *args, **kwargs):
-        """
-        Handle POST requests: instantiate a form instance with the passed
-        POST variables and then check if it's valid.
-        """
-        request.POST._mutable = True
-        request.POST["autor"] = request.user
-        request.POST._mutable = False
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
 
-        form = self.get_form()
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
         if form.is_valid():
-            return self.form_valid(form)
+            post = form.save(commit=False)
+            post.autor = request.user
+            post.save()
+            return redirect('post_list')
         else:
-            return self.form_invalid(form)
+            return render(request, self.template_name, {'form': form})
 
 
 class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
