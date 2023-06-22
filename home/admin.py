@@ -2,6 +2,7 @@ from django.contrib import admin
 from blog.models import *
 from home.models import *
 
+
 # Register your models here.
 
 class Admin14Site(admin.AdminSite):
@@ -12,24 +13,31 @@ class Admin14Site(admin.AdminSite):
 class ContactoEdit(admin.ModelAdmin):
     list_display = ('nombre', 'apellido', 'email', 'mensaje',)
     list_editable = ('mensaje',)
-    search_fields = ('apellido', 'nombre')
+    search_fields = ('apellido', 'nombre')  
 
-class RolesInline(admin.TabularInline):
-    model = Persona_rol
+class PostAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'display_topics']
+    list_filter = ['topic']
+
+    def display_topics(self, obj):
+        topics = ", ".join(str(topic) for topic in obj.topic.all())
+        return topics
+
+    display_topics.short_description = 'Topics'
     
-class RolesAdmin(admin.ModelAdmin):
-    inlines = [
-        RolesInline,
-    ]    
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['post', 'autor', 'texto', 'display_topics']
+    list_filter = ['topic']
+
+    def display_topics(self, obj):
+        topics = ", ".join(str(topic) for topic in obj.topic.all())
+        return topics
+
+    display_topics.short_description = 'Topics'
 
 web_admin = Admin14Site(name='admin14')
 web_admin.register(Contacto, ContactoEdit)
-#web_admin.register(Persona, RolesAdmin)
-#web_admin.register(Publicacion)
-#web_admin.register(Comentario)
-#web_admin.register(Persona_rol)
-#web_admin.register(Rol)
 web_admin.register(User)
-web_admin.register(Post)
-web_admin.register(Comment)
-#web_admin.register(Topic)
+web_admin.register(Post, PostAdmin)
+web_admin.register(Comment, CommentAdmin)
+web_admin.register(Topic)

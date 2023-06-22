@@ -1,16 +1,12 @@
 from django import forms
 
-from .models import Comment, Post, Topic
+from .models import Comment, Post
 
 
-class PostForm(forms.ModelForm):
-        #topic = forms.ModelMultipleChoiceField(
-        #queryset=Topic.objects.all(),
-        #widget=forms.Select(attrs={"class": "form-control"}),)
-        
+class PostForm(forms.ModelForm):        
         class Meta:
             model = Post
-            exclude = ("status", "created_on", "updated_on")
+            exclude = ("status", "created_on", "updated_on", "topic")
 
             widgets = {
                 "titulo": forms.TextInput(attrs={"class": "form-control"}),
@@ -21,6 +17,7 @@ class PostForm(forms.ModelForm):
             }
 
 
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -28,12 +25,10 @@ class CommentForm(forms.ModelForm):
             "post",
             "autor",
             "texto",
-            #"topic",
         )
 
         widgets = {
             "post": forms.HiddenInput(),
             "autor": forms.HiddenInput(),
             "texto": forms.Textarea(attrs={"class": "form-control content"}),
-            #"topic" : forms.Select(attrs={"class": "form-control"}),
         }

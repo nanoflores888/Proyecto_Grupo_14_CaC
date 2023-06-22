@@ -1,7 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -25,15 +23,10 @@ class CreatePost(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("post_list")
 
     form_class = PostForm
-    # model = Post
     queryset = Post.objects.all()
     template_name = "blog/post_form.html"
 
     def post(self, request, *args, **kwargs):
-        """
-        Handle POST requests: instantiate a form instance with the passed
-        POST variables and then check if it's valid.
-        """
         request.POST._mutable = True
         request.POST["autor"] = request.user
         request.POST._mutable = False
@@ -47,10 +40,6 @@ class CreatePost(LoginRequiredMixin, generic.CreateView):
 
 class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
     login_url = reverse_lazy("login")
-    # success_url = reverse_lazy("post_detail", kwargs={'pk': post.id})
-
-    # model = Post
-    # template_name = 'blog/post_form.html'
     queryset = Post.objects.all()
     form_class = PostForm
 
@@ -129,11 +118,3 @@ def comment_remove(request, pk):
     post_pk = comment.first().post.pk
     comment.delete()
     return redirect("post_detail", pk=post_pk)
-
-
-class CreateUser(generic.CreateView):
-    success_url = reverse_lazy("post_list")
-
-    form_class = UserCreationForm
-    queryset = User.objects.all()
-    template_name = "registration/signup.html"

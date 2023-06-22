@@ -27,5 +27,4 @@ urlpatterns = [
         "comment/<int:pk>/remove/", views.comment_remove, name="comment_remove"
     ),
     path("post/<int:pk>/comment/", views.add_comment, name="add_comment"),
-    path("user/new/", views.CreateUser.as_view(), name="new_user"),
 ]
