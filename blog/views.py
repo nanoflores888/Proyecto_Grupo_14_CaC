@@ -38,10 +38,6 @@ class CreatePost(LoginRequiredMixin, generic.CreateView):
 
 class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
     login_url = reverse_lazy("login")
-    # success_url = reverse_lazy("post_detail", kwargs={'pk': post.id})
-
-    # model = Post
-    # template_name = 'blog/post_form.html'
     queryset = Post.objects.all()
     form_class = PostForm
 

@@ -1,13 +1,10 @@
 from django import forms
 
-from .models import Comment, Post, Topic
+from .models import Comment, Post
 
 
 class PostForm(forms.ModelForm):
-        #topic = forms.ModelMultipleChoiceField(
-        #queryset=Topic.objects.all(),
-        #widget=forms.Select(attrs={"class": "form-control"}),)
-        
+            
         class Meta:
             model = Post
             exclude = ("status", "created_on", "updated_on", "topic")

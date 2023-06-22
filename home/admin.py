@@ -14,15 +14,7 @@ class ContactoEdit(admin.ModelAdmin):
     list_display = ('nombre', 'apellido', 'email', 'mensaje',)
     list_editable = ('mensaje',)
     search_fields = ('apellido', 'nombre')
-
-class RolesInline(admin.TabularInline):
-    model = Persona_rol
-    
-class RolesAdmin(admin.ModelAdmin):
-    inlines = [
-        RolesInline,
-    ]    
-
+   
 class PostAdmin(admin.ModelAdmin):
     filter_horizontal = ('topic',)
     list_display = ['titulo', 'display_topics']
@@ -47,11 +39,6 @@ class CommentAdmin(admin.ModelAdmin):
 
 web_admin = Admin14Site(name='admin14')
 web_admin.register(Contacto, ContactoEdit)
-#web_admin.register(Persona, RolesAdmin)
-#web_admin.register(Publicacion)
-#web_admin.register(Comentario)
-#web_admin.register(Persona_rol)
-#web_admin.register(Rol)
 web_admin.register(User)
 web_admin.register(Post, PostAdmin)
 web_admin.register(Comment, CommentAdmin)

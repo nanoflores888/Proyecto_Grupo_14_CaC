@@ -1,5 +1,5 @@
 from django import forms
-from .models import Contacto, Publicacion, User
+from .models import Contacto, User
 from django.forms import ValidationError
 from django.contrib.auth.forms import UserCreationForm
 
@@ -73,28 +73,6 @@ class ContactoForm(forms.ModelForm):
             if field_name in self.errors:
                 field.widget.attrs['class'] += ' is-invalid'
 
-class PublicacionForm(forms.ModelForm):
-    class Meta:
-        model = Publicacion
-        fields = ['titulo', 'contenido']
-        widgets = {
-                'titulo': forms.TextInput(attrs={
-                    'class': "form-control",
-                    'id': 'titulo',
-                    'style': 'max-width: 600px;',
-                    'placeholder': 'titulo',
-                    'maxlength': '150',
-                    'required': True,
-                    'validators': (solo_caracteres,),
-                    }),
-                'contenido': forms.TextInput(attrs={
-                    'class': "form-control",
-                    'style': 'max-width: 800px; max-height: 800px;',
-                    'placeholder': 'contenido',
-                    'maxlength': '2500',
-                    'required': True
-                    }),
-            }
 
 class RegistroForm(UserCreationForm):
     class Meta:
