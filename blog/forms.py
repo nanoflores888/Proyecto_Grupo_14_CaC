@@ -5,7 +5,7 @@ from .models import Comment, Post, Topic
 
 class PostForm(forms.ModelForm):
      topic = forms.ModelChoiceField(queryset= Topic.objects.all(),  # Verifica que el queryset sea iterable
-                                       widget=forms.Select(attrs={"class": "form-control"}))
+                                    widget=forms.Select(attrs={"class": "form-control"}))
      
      class Meta:
         model = Post
@@ -16,7 +16,7 @@ class PostForm(forms.ModelForm):
             "slug": forms.TextInput(attrs={"class": "form-control"}),
             "contenido": forms.Textarea(attrs={"class": "form-control content"}),
             "imagen": forms.FileInput(attrs={"class": "form-control"}),
-            "autor": forms.HiddenInput(),
+            #"autor": forms.HiddenInput(),
             }
 
 
