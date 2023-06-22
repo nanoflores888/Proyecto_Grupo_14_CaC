@@ -1,9 +1,19 @@
 from django.shortcuts import redirect, render
-from .forms import ContactoForm
+from .forms import ContactoForm, PublicacionForm
+from .models import Publicacion
 from django.contrib import messages
-from django.contrib.auth.views import LogoutView
-from .forms import RegistroForm
 
+from django.core.mail import send_mail
+from django.conf import settings
+
+from django.contrib.auth.views import LoginView, LogoutView
+from .forms import RegistroForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def home(request):
     return render(request, "home/index.html")
@@ -20,6 +30,9 @@ def proyecto_F4(request):
 def galeria(request):
     return render(request, "home/galeria.html")
 
+def noticias(request):
+    return render(request, "home/noticias.html")
+
 '''------- CRUD DE CONTACTO -------'''
 
 def contacto(request):
@@ -33,6 +46,24 @@ def contacto(request):
         contact_form = ContactoForm()
     return render(request, "home/contacto.html", {'contact_form': contact_form})
 
+
+'''------- CRUD DE PUBLICACIONES -------'''
+
+def nueva_noticia(request):
+    if(request.method == 'POST'):
+        publication_form = PublicacionForm(request.POST)
+        if publication_form.is_valid():
+            publication_form.save()
+            messages.success(request, 'Mensaje enviado correctamente.')
+            return render(request, "home/nueva_noticia.html", {'publication_form': publication_form})
+    else:
+            publication_form = PublicacionForm()
+    return render(request, "home/nueva_noticia.html", {'publication_form': publication_form})
+
+def listar_publicaciones(request):
+    #queryset
+    publicaciones = Publicacion.objects.all()
+    return render(request,'home/noticias.html',{'publication_form': publicaciones})
 
 
 def registro(request):

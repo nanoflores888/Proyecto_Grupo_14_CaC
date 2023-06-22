@@ -1,3 +1,5 @@
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate
 from django.db import models
 from django.core.validators import MinLengthValidator
 from django.contrib.auth.models import User
@@ -14,9 +16,6 @@ class Contacto(models.Model):
         db_table = 'CONTACTO'
 
     def __str__(self):
-<<<<<<< HEAD
-        return f"{self.nombre} - {self.apellido}"
-=======
         return f"{self.nombre} - {self.apellido}"
 
 # Modelo de la clase Persona
@@ -48,7 +47,7 @@ class Persona(models.Model):
     def restore(self):
         self.baja=False
         super().save()
-
+    
     def set_roles(self, roles):
         for role in roles:
             rol, _ = Rol.objects.get_or_create(detalle_rol=role)
@@ -128,4 +127,3 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f"{self.id} - {self.contenido}"
->>>>>>> 4ea3cbccfd2da0339a57df5cdcfcff6f63a48791

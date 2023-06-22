@@ -8,7 +8,6 @@ STATUS = (
 )
 
 class Topic(models.Model):
-<<<<<<< HEAD
     pass
     TOPIC_CHOICES = [
         (0, "Opinion"),
@@ -21,22 +20,7 @@ class Topic(models.Model):
 
     def __str__(self):
         return self.get_topic_display()
-=======
-    topic = models.CharField(max_length=100, verbose_name='TOPIC', null=False, default='Opinion')
->>>>>>> 4ea3cbccfd2da0339a57df5cdcfcff6f63a48791
 
-    def __str__(self):
-        return self.topic
-
-    class Meta:
-        db_table = 'blog_topic'
-
-# Crear los valores por defecto
-#default_topics = ['Opinion', 'Consejo', 'Carrera', 'Clasificacion']
-
-# Insertar los valores por defecto en la base de datos
-#for topic in default_topics:
-#    Topic.objects.get_or_create(topic=topic)
 
 class Post(models.Model):
     titulo = models.CharField(max_length=200, unique=True)
@@ -45,7 +29,7 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     imagen = models.ImageField(
         upload_to="post",
-        default="../media/post/no-image.jpg",
+        default="post/sample.jpg",
     )
     autor = models.ForeignKey(
         User,
@@ -55,12 +39,7 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     topic = models.ManyToManyField(Topic, verbose_name="TOPIC")
-<<<<<<< HEAD
     
-=======
-
-
->>>>>>> 4ea3cbccfd2da0339a57df5cdcfcff6f63a48791
     def __str__(self):
         topics = ", ".join(str(topic) for topic in self.topic.all())
         return f"{self.titulo}"
@@ -80,11 +59,7 @@ class Comment(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     topic = models.ManyToManyField(Topic, verbose_name="TOPIC")
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 4ea3cbccfd2da0339a57df5cdcfcff6f63a48791
     def __str__(self):
         topics = ", ".join(str(topic) for topic in self.topic.all())
         return f"{self.texto} - {topics}"
