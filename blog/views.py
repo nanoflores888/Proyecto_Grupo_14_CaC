@@ -3,10 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views import View
 
 from .forms import CommentForm, PostForm
 from .models import Comment, Post
-
 
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by("-created_on")
@@ -18,11 +18,10 @@ class PostDetail(generic.DetailView):
     # template_name = 'post_detail.html'
 
 
-class CreatePost(LoginRequiredMixin, generic.CreateView):
+class CreatePost(LoginRequiredMixin, View):
     login_url = reverse_lazy("login")
-    success_url = reverse_lazy("post_list")
-
     form_class = PostForm
+<<<<<<< HEAD
     queryset = Post.objects.all()
     template_name = "blog/post_form.html"
 
@@ -30,12 +29,23 @@ class CreatePost(LoginRequiredMixin, generic.CreateView):
         request.POST._mutable = True
         request.POST["autor"] = request.user
         request.POST._mutable = False
+=======
+    template_name = "blog/post_form.html"
 
-        form = self.get_form()
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+>>>>>>> 4ea3cbccfd2da0339a57df5cdcfcff6f63a48791
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
         if form.is_valid():
-            return self.form_valid(form)
+            post = form.save(commit=False)
+            post.autor = request.user
+            post.save()
+            return redirect('post_list')
         else:
-            return self.form_invalid(form)
+            return render(request, self.template_name, {'form': form})
 
 
 class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -117,4 +127,16 @@ def comment_remove(request, pk):
     comment = Comment.objects.filter(pk=pk)
     post_pk = comment.first().post.pk
     comment.delete()
+<<<<<<< HEAD
     return redirect("post_detail", pk=post_pk)
+=======
+    return redirect("post_detail", pk=post_pk)
+
+
+class CreateUser(generic.CreateView):
+    success_url = reverse_lazy("post_list")
+
+    form_class = UserCreationForm
+    queryset = User.objects.all()
+    template_name = "registration/signup.html"
+>>>>>>> 4ea3cbccfd2da0339a57df5cdcfcff6f63a48791
